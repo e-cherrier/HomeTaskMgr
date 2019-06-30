@@ -1,12 +1,37 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import {Grid, Button} from '@material-ui/core';
 import useInputState from './useInputState';
+
+import InputField from "./InputField";
+import Selector from "./Selector";
+
+
+import {
+  createStyles,
+  Theme,
+  withStyles,
+  WithStyles
+} from "@material-ui/core/styles";
+
+const styles = (theme: Theme) =>
+  createStyles({
+    optionFormControl: {
+      margin: theme.spacing.unit,
+      minWidth: 120,
+      alignItems: "center"
+    },
+    rightIcon: {
+      marginLeft: theme.spacing.unit
+    }
+  });
 
 interface ITest {
   saveTodo: (todoText:string) => void;
 }
 
-const TodoForm: React.FC<ITest> = ( props ) => {
+type Props = ITest & WithStyles<typeof styles>;
+
+const TodoForm: React.FC<Props> = ( props ) => {
   const { value, reset, onChange } = useInputState();
 
   return (
@@ -18,15 +43,57 @@ const TodoForm: React.FC<ITest> = ( props ) => {
         reset();
       }}
     >
-      <TextField
-        variant="outlined"
-        placeholder="Add todo"
-        margin="normal"
+    <Grid container={true} spacing={16}>
+      <Grid item={true}>
+      <InputField
+        label="Nom"
+        parameter="nom"
+        helperText="Dénomination de la tâche"
         onChange={onChange}
-        value={value}
       />
+      </Grid>
+      <Grid item={true}>
+      <Selector
+      parameter="difficulte"
+      field="Difficulté"
+      helper="ordre croissant"
+      multiple={false}
+      notify={onChange}
+      choices={["1","2","3","4","5"]}
+      />
+      </Grid>
+      <Grid item={true}>
+      <InputField
+        label="Récurrence"
+        parameter="recurrence"
+        helperText="Quelle est la fréquence idéale?"
+        onChange={onChange}
+        unite="jour(s)"
+      />
+      </Grid>
+      <Grid item={true}>
+      <Selector
+      parameter="assigne"
+      field="Pour qui ?"
+      helper="choisir une ou plusieurs personne(s)"
+      multiple={true}
+      notify={onChange}
+      choices={["Tout le monde","Aloys", "Jeanne", "Félicie","Agnes", "Etienne"]}
+      />
+      </Grid>
+      <Grid item={true}>
+          <Button
+            name="compute"
+            variant="contained"
+            color="secondary"
+            onClick={onChange}
+          >
+            Ajouter
+          </Button>
+      </Grid>
+      </Grid>
     </form>
   );
 };
 
-export default TodoForm;
+export default withStyles(styles)(TodoForm);

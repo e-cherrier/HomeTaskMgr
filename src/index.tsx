@@ -11,8 +11,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <Typography component="h1" variant="h2">
-        Todos
+      <Typography component="h2" variant="h4">
+        Ajout de nouvelles tâches
       </Typography>
 
       <TodoForm

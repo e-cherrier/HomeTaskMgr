@@ -1,11 +1,9 @@
 import React from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+
+import Grid from "@material-ui/core/Grid";
+
+import TaskCard from "./Card";
+import { Typography } from '@material-ui/core';
 
 interface ITest {
   todos:string[]
@@ -13,24 +11,14 @@ interface ITest {
 }
 
 const TodoList: React.FC<ITest> = ( {todos, deleteTodo} ) => (
-  <List>
+  todos ?
+  <Grid container={true} spacing={8}>
     {todos.map((todo, index) => (
-      <ListItem key={index.toString()} dense button>
-        <Checkbox tabIndex={-1} disableRipple />
-        <ListItemText primary={todo} />
-        <ListItemSecondaryAction>
-          <IconButton
-            aria-label="Delete"
-            onClick={() => {
-              deleteTodo(index);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+      <Grid item={true} >
+              <TaskCard title={todo} difficulty={"Cool"} frequency={1} />
+      </Grid>
     ))}
-  </List>
-);
+  </Grid> : <Typography>None</Typography>
+); 
 
 export default TodoList;
