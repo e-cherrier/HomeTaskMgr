@@ -16,7 +16,7 @@ const App = () => {
       </Typography>
 
       <TodoForm
-        saveTodo={todoText => {
+        saveTodo={(todoText :string )=> {
           const trimmedText = todoText.trim();
 
           if (trimmedText.length > 0) {

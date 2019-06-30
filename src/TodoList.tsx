@@ -7,7 +7,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const TodoList = ({ todos, deleteTodo }) => (
+interface ITest {
+  todos:string[]
+  deleteTodo:(i:number)=>void
+}
+
+const TodoList: React.FC<ITest> = ( {todos, deleteTodo} ) => (
   <List>
     {todos.map((todo, index) => (
       <ListItem key={index.toString()} dense button>

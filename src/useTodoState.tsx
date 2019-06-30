@@ -1,17 +1,20 @@
 import { useState } from 'react';
 
-export default initialValue => {
-  const [todos, setTodos] = useState(initialValue);
+const initialValue = ([])=> {
+  const [todos, setTodos] = useState<string[]>( [] as string[] ) ;
+
+  // const [todos, setTodos] = useState(initialValue);
 
   return {
     todos,
-    addTodo: todoText => {
+    addTodo: (todoText:string) => {
       setTodos([...todos, todoText]);
     },
-    deleteTodo: todoIndex => {
+    deleteTodo: (todoIndex:number) => {
       const newTodos = todos.filter((_, index) => index !== todoIndex);
 
       setTodos(newTodos);
     }
   };
 };
+export default initialValue;
